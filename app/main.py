@@ -1,3 +1,11 @@
+import os
+from fastapi.staticfiles import StaticFiles
+
+STORAGE_DIR = os.getenv("STORAGE_DIR", "files")
+os.makedirs(STORAGE_DIR, exist_ok=True)  # <-- must be before mount
+app.mount("/files", StaticFiles(directory=STORAGE_DIR), name="files")
+
+
 import os, io, time
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi import HTTPException
